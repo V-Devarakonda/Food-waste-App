@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Define the Food class
+class Food {
+private:
+    string name;
+    double weight;
+public:
+    Food(string n, double w) : name(n), weight(w) {}
+
+    // Getters and setters
+    string getName() { return name; }
+    void setName(string n) { name = n; }
+    double getWeight() { return weight; }
+    void setWeight(double w) { weight = w; }
+};
+
+// Define the Location class
+class Location {
+private:
+    string name;
+    vector<Food> foods;
+public:
+    Location(string n) : name(n) {}
+
+    // Getters and setters
+    string getName() { return name; }
+    void setName(string n) { name = n; }
+
+    // Add a food item to this location
+    void addFood(Food f) { foods.push_back(f); }
+
+    // Get all food items at this location
+    vector<Food> getFoods() { return foods; }
+};
+
+// Define the User class
+class User {
+private:
+    string name;
+    vector<Location> locations;
+public:
+    User(string n) : name(n) {}
+
+    // Getters and setters
+    string getName() { return name; }
+    void setName(string n) { name = n; }
+
+    // Add a location to this user's list of locations
+    void addLocation(Location l) { locations.push_back(l); }
+
+    // Get all locations for this user
+    vector<Location> getLocations() { return locations; }
+};
+
+int main() {
+    // Create some food items
+    Food f1("Banana", 0.2);
+    Food f2("Apple", 0.1);
+
+    // Create some locations
+    Location l1("Kitchen");
+    l1.addFood(f1);
+    l1.addFood(f2);
+    Location l2("Fridge");
+
+    // Create a user and add the locations
+    User u("John");
+    u.addLocation(l1);
+    u.addLocation(l2);
+
+    // Get all locations for this user
+    vector<Location> locations = u.getLocations();
+
+    // Print out all food items for each location
+    for (Location loc : locations) {
+        cout << "Location: " << loc.getName() << endl;
+        vector<Food> foods = loc.getFoods();
+        for (Food f : foods) {
+            cout << "- " << f.getName() << " (" << f.getWeight() << " kg)" << endl;
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
